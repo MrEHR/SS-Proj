@@ -42,6 +42,12 @@ def displayMovie(movieStack,stackSize,count):
      
     pos_reset=0
     
+    scrollbar=Scrollbar(window)
+    #Scroll bar row position
+    row_scroll=0
+    #Scroll bar column position
+    col_scroll=3
+    
     #Loop for positioning widgets on the grid
     while count<stackSize: 
     # Open Movie Image
@@ -68,17 +74,19 @@ def displayMovie(movieStack,stackSize,count):
         col_lab+=1
         col_img+=1
         col_but+=1
+        
         pos_reset+=1
         
         
         if pos_reset==3:
-            row_lab=3
-            row_img=4
-            row_but=5
+            pos_reset=0
+            row_lab+=3
+            row_img+=3
+            row_but+=3
             
-            col_lab+=0
-            col_img+=0
-            col_but+=0
+            col_lab=0
+            col_img=0
+            col_but=0
         count+=1     
    
      
