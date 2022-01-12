@@ -13,7 +13,7 @@ global openMovie
 global movieImage
 global poster
 
-
+"""This class contains the stacks that store the titles and file paths for each movie.  """
 class movie_system:
     file=open('C:/Users/Ezra/Desktop/SSP/iofileW.txt','r')
     title_file=open('C:/Users/Ezra/Desktop/SSP/titles.txt','r')
@@ -23,11 +23,12 @@ class movie_system:
     stackSize=0
     file_path=[]
     title_stack=[]
+    #The file paths are added to the file_path stack in this loop
     for path in file:
         path = path.rstrip()    
         file_path.append(path)
         stackSize+=1
-        
+    #The Titles are added to the title_stack in this loop    
     for title in title_file:
         title = title.rstrip()
         title_stack.append(title)
@@ -36,25 +37,28 @@ class movie_system:
            
 # End of movie_system class--------------------------------------------------------------  
 
+#Start of movie_button class|||||||||||||||||||||||||||||||||||||||||||||||||||
+"""This child class is for initializing the buttons on the Movie Selection Window.
+Each button will open a Toplevel window that will display the selected movie  """
 class movie_button(movie_system):
     def __init__(self):
         super().__init__()
         self.button_stack=[]
-        self.button_id=[]
-        #postion of button in the stack
-    button_id=[]
+        
+       
     button_stack=[]    
     f=0
-    
+    #Buttons are added to the button_stack in this loop
     while f < movie_system.stackSize:
         button=Button(text="Click Here")
         button_stack.append(button)
+        # This line allows the buttons to access the same function with different parameters 
         button_stack[f].config(command= lambda f=f : movie_button.button_click(movie_system.file_path[f]))
-        button_id.append(id(button))
         f+=1
             
     #Button Function for displaying the second window
     def button_click(moviePath):
+        # This is the Toplevel widget that the poster is displayed on
          top = Toplevel(width=1000,height=1000)
          
 
@@ -77,6 +81,7 @@ class movie_button(movie_system):
 
     
  #End of movie_button class----------------------------------------------------------------   
+# This class is class displays the movie selection window
 class gui_display(movie_button):
     def displayMovies(self):
         top=Toplevel()
@@ -107,6 +112,7 @@ class gui_display(movie_button):
         
         #Loop for positioning widgets on the grid
         while count<movie_system.stackSize:
+            #I had to redefine the buttons here so I could make them appear on the toplevel widget. I tried to just reconfigure them, but I'm not sure how to do that
             movie_button.button_stack[count]=Button(top,text="Click Here",command= lambda count=count : movie_button.button_click(movie_system.file_path[count]))
         # Open Movie Image
             openMovie = Image.open(movie_system.file_path[count])
@@ -133,7 +139,7 @@ class gui_display(movie_button):
             
             pos_reset+=1
             
-            
+           # This makes the images display in a 3x3 style 
             if pos_reset==3:
                 pos_reset=0
                 row_lab+=3
@@ -154,12 +160,10 @@ window.title('Movie Selection')
 
 window.geometry('200x200')
 
-
-file_path=[]
-stackSize=0
 start_button=Button(window,text="Click to Start", command = lambda : start_func())
 start_button.grid(row=0,column=0)
-    
+ #This is the function used for the start button, I originally added it to prevent some other windows from popping up
+  #There is one window that still pops up, It's the root window. I have not figured out why It shows up here yet
 def start_func():   
     startup=movie_system()
 
