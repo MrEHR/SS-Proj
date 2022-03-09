@@ -7,7 +7,7 @@ Created on Tue Mar  1 12:39:31 2022
 #1
 import nltk, tkinter
 from nltk.tokenize import sent_tokenize, word_tokenize
-from tkinter import Button,Label,Toplevel,Entry,Radiobutton
+from tkinter import Button,Label,Toplevel,Entry
 from PIL import ImageTk, Image 
 
 
@@ -16,10 +16,7 @@ from nltk.corpus import stopwords,wordnet
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 
-global desc_path
-global title_path
-global img_path
- 
+
     
 
 #Start of gui class[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
@@ -43,7 +40,11 @@ class gui:
     check=0
     
     
-    
+    def quick_input():
+        gui.entry.insert(0,"action")
+        gui.genre_entry.insert(0,"action")
+
+        
     def run_comp():
        global user_input
        global genre_input
@@ -55,14 +56,14 @@ class gui:
        genre_input= gui.genre_entry.get()
        
        if genre_input == "Action" or genre_input =="action":
-           desc_path="C:/Users/Ezra/Desktop/SSP/actionDesc.txt"
-           title_path="C:/Users/Ezra/Desktop/SSP/actionTitles.txt"
-           img_path="C:/Users/Ezra/Desktop/SSP/actionImg.txt"
+           desc_path="D:/SP/movieRec/actionDesc.txt"
+           title_path="D:/SP/movieRec/actionTitles.txt"
+           img_path="D:/SP/movieRec/actionImg.txt"
            
        if genre_input == "Comedy" or genre_input =="comedy":
-           desc_path="C:/Users/Ezra/Desktop/SSP/comedyDesc.txt"
-           title_path="C:/Users/Ezra/Desktop/SSP/comedyTitles.txt"
-           img_path="C:/Users/Ezra/Desktop/SSP/comedyImg.txt"
+           desc_path="D:/SP/movieRec/comedyDesc.txt"
+           title_path="D:/SP/movieRec/comedyTitles.txt"
+           img_path="D:/SP/movieRec/comedyImg.txt"
            
        gui.check=1
        
@@ -78,6 +79,9 @@ class user_setup(gui):
     #these lines of code are here because I could not get the button command to work inside of the gui class
     u_button=Button(gui.window,text="click",command= lambda: gui.run_comp())
     u_button.grid(row=2,column=0)
+    q_button=Button(gui.window,text="quick",command= lambda: gui.quick_input())
+    q_button.grid(row=3,column=0)
+    #MAINLOOP
     gui.window.mainloop()
     
     '''this loop will run until the user inputs some data, '''
@@ -86,14 +90,14 @@ class user_setup(gui):
     
     
     stop_words = set(stopwords.words("english"))
-    filtered_spec=[]
+    filtered_spec=""
     
     stemmer = PorterStemmer()
     lematizer = WordNetLemmatizer()
     
     for word in user_input:
         if word.casefold() not in stop_words:
-            filtered_spec.append(lematizer.lemmatize(word))
+            filtered_spec+=lematizer.lemmatize(word)
     
 
 #End of user_setup|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -106,17 +110,18 @@ class file_setup(gui):
         self.stemmer=PorterStemmer()
         self.lematizer = WordNetLemmatizer()
     
-    file0=open(img_path,'r')
-    file1=open(desc_path,'r')
+    opened_img_file=open(img_path,'r')
+    opened_desc_file=open(desc_path,'r')
+    opened_title_file=open(title_path,'r')
     
     #stack for storing file paths
-    file_path=[]
+    img_file_list=[]
+    title_file_list=[]
     desc_file=[]
     stackSize=0
     
     stop_words = set(stopwords.words("english"))
-    filtered_desc=[]
-    
+    filtered_desc=["","","","",""]
     stemmer = PorterStemmer()
     lematizer = WordNetLemmatizer()
     
@@ -125,26 +130,29 @@ class file_setup(gui):
     #this loop is going to store the file path in a class object,
     #then the object will be stored in a stack
     button=Button()
-    for desc in file1:
+    for desc in opened_desc_file:
         desc = desc.rstrip()
-        desc_words = word_tokenize(desc)
-        for word in desc_words:
+        desc = word_tokenize(desc)
+        
+        for word in desc:
             if word.casefold() not in stop_words:
-                filtered_desc.append(lematizer.lemmatize(word))
-        i+=1      
                 
-    for path in file0:
+                filtered_desc[i]+=" "+ lematizer.lemmatize(word)
+        #filtered_desc[i]= filtered_desc[i].split()
+        i+=1      
+               
+    for path in opened_img_file:
         path = path.rstrip()
-        file_path.append(path)
+        img_file_list.append(path)
         stackSize+=1
-        i+=1
+    
+    for path in opened_title_file:
+        path = path.rstrip()
+        title_file_list.append(path)
+        
+        
 #End of file_setup class|||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 #Start of main [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
-GUI=gui()
-u=user_setup()
-file_setup=file_setup()
-    
-    
     
