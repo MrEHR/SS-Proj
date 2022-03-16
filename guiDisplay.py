@@ -187,8 +187,9 @@ class gui_display(movie_button,comparison,gui):
                 #position button
                 movie_button.button_stack[count].grid(row=5,column=1,padx=10,pady=10)
          
-            count+=1 
-            #gui.window.mainloop()
+            count+=1
+        top.mainloop()
+            
 #End of displayMovies++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #End of gui_display class-----------------------------------------------------------------------------------
