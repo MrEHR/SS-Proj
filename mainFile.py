@@ -6,8 +6,8 @@ Created on Tue Mar  1 13:00:20 2022
 """
 #0
 # most of the class object instantions will be made here
-import untitled5
-from untitled5 import *
+import guiDisplay
+from guiDisplay import *
 
 GUI=gui()
 u=user_setup()
