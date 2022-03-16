@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Mar  1 12:39:31 2022
-
-@author: Ezra
-"""
 #1
 import nltk, tkinter
 from nltk.tokenize import sent_tokenize, word_tokenize
@@ -40,12 +35,12 @@ class gui:
     check=0
     
     
-    def quick_input():
-        gui.entry.insert(0,"action")
+    def quick_input():# I just added this button to quickly fill in data while I was testing
+        gui.entry.insert(0,"something with war and drama")
         gui.genre_entry.insert(0,"action")
 
         
-    def run_comp():
+    def run_comp(): # this gets the input from the entry fields and assigns file paths to global variables for the titles, descriptions and images
        global user_input
        global genre_input
        global desc_path
@@ -54,20 +49,21 @@ class gui:
        
        user_input=gui.entry.get()
        genre_input= gui.genre_entry.get()
+       genre_input= genre_input.lower()
        
        if genre_input == "Action" or genre_input =="action":
-           desc_path="D:/SP/movieRec/actionDesc.txt"
-           title_path="D:/SP/movieRec/actionTitles.txt"
-           img_path="D:/SP/movieRec/actionImg.txt"
+           desc_path="C:/Users/Ezra/Desktop/SSP/actionDesc.txt"
+           title_path="C:/Users/Ezra/Desktop/SSP/actionTitles.txt"
+           img_path="C:/Users/Ezra/Desktop/SSP/actionImg.txt"
            
        if genre_input == "Comedy" or genre_input =="comedy":
-           desc_path="D:/SP/movieRec/comedyDesc.txt"
-           title_path="D:/SP/movieRec/comedyTitles.txt"
-           img_path="D:/SP/movieRec/comedyImg.txt"
+           desc_path="C:/Users/Ezra/Desktop/SSP/comedyDesc.txt"
+           title_path="C:/Users/Ezra/Desktop/SSP/comedyTitles.txt"
+           img_path="C:/Users/Ezra/Desktop/SSP/comedyImg.txt"
            
        gui.check=1
-       
-    #window.mainloop()
+       gui.window.destroy()
+    
     
     
     
@@ -138,7 +134,7 @@ class file_setup(gui):
             if word.casefold() not in stop_words:
                 
                 filtered_desc[i]+=" "+ lematizer.lemmatize(word)
-        #filtered_desc[i]= filtered_desc[i].split()
+        
         i+=1      
                
     for path in opened_img_file:
@@ -154,5 +150,3 @@ class file_setup(gui):
 #End of file_setup class|||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 #Start of main [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
-
-    
