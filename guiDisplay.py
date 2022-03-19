@@ -14,8 +14,8 @@ global openMovie
 global movieImage
 global poster
 
-import untitled6
-from untitled6 import *
+import comparison
+from comparison import *
 class movie_system(file_setup):
     
     stackSize=file_setup.stackSize
