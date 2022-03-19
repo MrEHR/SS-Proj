@@ -141,7 +141,7 @@ class gui_display(movie_button,comparison,gui):
                 movieImage.grid(row=1,column=2,padx=20,pady=20,ipadx=20,ipady=20)
                 
                 #position button
-                movie_button.button_stack[count].grid(row=2,column=0,padx=10,pady=10)
+                movie_button.button_stack[count].grid(row=2,column=2,padx=10,pady=10)
            
             if comparison.simRank[count] == 3:
             
