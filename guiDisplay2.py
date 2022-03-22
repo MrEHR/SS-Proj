@@ -54,9 +54,16 @@ class movie_button(movie_system):
         
         player = tkvideo(movieVideo,video_label,loop = 1, size = (1280,720))
         player.play()
+    def playMovie_Rec(movieRec_vid):
+        movie_window=customtkinter.CTkToplevel(width=1000,height=1000)
+        movie_window.title("Playing Movie")
+        video_label=Label(movie_window)
+        video_label.grid(row=1,column=0)
         
+        player = tkvideo(movieRec_vid,video_label,loop = 1, size = (1280,720))
+        player.play()
     #Button Function for displaying the selected movie window
-    def button_click(moviePath,movieTitle,movieVideo,movieRec_title1,movieRec_img1,movieRec_title2,movieRec_img2):
+    def button_click(moviePath,movieTitle,movieVideo,movieRec_title1,movieRec_img1,movieRec_vid1,movieRec_title2,movieRec_img2,movieRec_vid2):
          top = customtkinter.CTkToplevel(width=1000,height=1000)
          top.title("Selected Movie")
          
@@ -96,7 +103,7 @@ class movie_button(movie_system):
                # Movie Label
          ML=customtkinter.CTkLabel(top,text=movieRec_title1)
          ML.grid(row=4,column=0,padx=10,pady=10)
-         recButton1=customtkinter.CTkButton(top,text="Click")
+         recButton1=customtkinter.CTkButton(top,text="Click", command= lambda : movie_button.playMovie_Rec(movieRec_vid1))
          recButton1.grid(row=6,column=0)
          # #--------------------------------------------------------------------
          # # Recommendation 2
@@ -115,8 +122,8 @@ class movie_button(movie_system):
          ML=customtkinter.CTkLabel(top,text=movieRec_title2)
          ML.grid(row=4,column=1,padx=10,pady=10)
          
-         recButton1=customtkinter.CTkButton(top,text="Click")
-         recButton1.grid(row=6,column=1)
+         recButton2=customtkinter.CTkButton(top,text="Click", command= lambda : movie_button.playMovie_Rec(movieRec_vid2))
+         recButton2.grid(row=6,column=1)
          
 
           
@@ -138,7 +145,7 @@ class gui_display(movie_button,comparison,gui):
             if comparison.simRank[count] == 0:
             
                 movie_button.button_stack[count]=customtkinter.CTkButton(top,text="Click Here",command= lambda count=count : movie_button.button_click(movie_system.file_path[count],movie_system.title_stack[count],movie_system.video_stack[count]
-                                                                                                                                ,movie_system.title_stack[count+1],movie_system.file_path[count+1],movie_system.title_stack[count+2],movie_system.file_path[count+2]))
+                                                    ,movie_system.title_stack[count+1],movie_system.file_path[count+1],movie_system.video_stack[count+1],movie_system.title_stack[count+2],movie_system.file_path[count+2],movie_system.video_stack[count+2]))
             # Open Movie Image
                 openMovie = Image.open(movie_system.file_path[count])
                 openMovie= openMovie.resize((250, 300), Image.ANTIALIAS)
@@ -161,7 +168,7 @@ class gui_display(movie_button,comparison,gui):
             if comparison.simRank[count] == 1:
              
                  movie_button.button_stack[count]=customtkinter.CTkButton(top,text="Click Here",command= lambda count=count : movie_button.button_click(movie_system.file_path[count],movie_system.title_stack[count],movie_system.video_stack[count]
-                                                                                                                                                        ,movie_system.title_stack[count-1],movie_system.file_path[count-1],movie_system.title_stack[count+1],movie_system.file_path[count+1]))
+                                                                                                    ,movie_system.title_stack[count-1],movie_system.file_path[count-1],movie_system.video_stack[count-1],movie_system.title_stack[count+1],movie_system.file_path[count+1],movie_system.video_stack[count+1]))
              # Open Movie Image
                  openMovie = Image.open(movie_system.file_path[count])
                  openMovie= openMovie.resize((250, 300), Image.ANTIALIAS)
@@ -184,7 +191,7 @@ class gui_display(movie_button,comparison,gui):
             if comparison.simRank[count] == 2:
             
                 movie_button.button_stack[count]=customtkinter.CTkButton(top,text="Click Here",command= lambda count=count : movie_button.button_click(movie_system.file_path[count],movie_system.title_stack[count],movie_system.video_stack[count]
-                                                                                                                                                       ,movie_system.title_stack[count-1],movie_system.file_path[count-1],movie_system.title_stack[count-2],movie_system.file_path[count-2]))
+                                                                                            ,movie_system.title_stack[count-1],movie_system.file_path[count-1],movie_system.video_stack[count-1],movie_system.title_stack[count-2],movie_system.file_path[count-2],movie_system.video_stack[count-2]))
             # Open Movie Image
                 openMovie = Image.open(movie_system.file_path[count])
                 openMovie= openMovie.resize((250, 300), Image.ANTIALIAS)
@@ -207,7 +214,7 @@ class gui_display(movie_button,comparison,gui):
             if comparison.simRank[count] == 3:
             
                 movie_button.button_stack[count]=customtkinter.CTkButton(top,text="Click Here",command= lambda count=count : movie_button.button_click(movie_system.file_path[count],movie_system.title_stack[count],movie_system.video_stack[count]
-                                                                                                                                                       ,movie_system.title_stack[count-1],movie_system.file_path[count-1],movie_system.title_stack[count-2],movie_system.file_path[count-2]))
+                                                                                                                ,movie_system.title_stack[count-1],movie_system.file_path[count-1],movie_system.video_stack[count-1],movie_system.title_stack[count-2],movie_system.file_path[count-2],movie_system.video_stack[count-2]))
             # Open Movie Image
                 openMovie = Image.open(movie_system.file_path[count])
                 openMovie= openMovie.resize((250, 300), Image.ANTIALIAS)
@@ -230,7 +237,7 @@ class gui_display(movie_button,comparison,gui):
             if comparison.simRank[count] == 4:
             
                 movie_button.button_stack[count]=customtkinter.CTkButton(top,text="Click Here",command= lambda count=count : movie_button.button_click(movie_system.file_path[count],movie_system.title_stack[count],movie_system.video_stack[count]
-                                                                                                                                                       ,movie_system.title_stack[count-1],movie_system.file_path[count-1],movie_system.title_stack[count-2],movie_system.file_path[count-2]))
+                                                                                                             ,movie_system.title_stack[count-1],movie_system.file_path[count-1],movie_system.video_stack[count-1],movie_system.title_stack[count-2],movie_system.file_path[count-2],movie_system.video_stack[count-2]))
             # Open Movie Image
                 openMovie = Image.open(movie_system.file_path[count])
                 openMovie= openMovie.resize((250, 300), Image.ANTIALIAS)
