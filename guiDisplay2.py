@@ -46,23 +46,22 @@ class movie_button(movie_system):
         
         f+=1
     
-    
+    def playMovie(movieVideo):
+        movie_window=customtkinter.CTkToplevel(width=1000,height=1000)
+        movie_window.title("Playing Movie")
+        video_label=Label(movie_window)
+        video_label.grid(row=1,column=0)
+        
+        player = tkvideo(movieVideo,video_label,loop = 1, size = (1280,720))
+        player.play()
+        
     #Button Function for displaying the selected movie window
     def button_click(moviePath,movieTitle,movieVideo,movieRec_title1,movieRec_img1,movieRec_title2,movieRec_img2):
          top = customtkinter.CTkToplevel(width=1000,height=1000)
+         top.title("Selected Movie")
          
-         video_title=Label(top,text=movieTitle)
-         video_title.grid(row=0,column=0)
-         
-         video_label=Label(top)
-         video_label.grid(row=1,column=0)
-         
-         player = tkvideo(movieVideo,video_label,loop = 1, size = (1280,720))
-         player.play()
-
-          # Open Movie Image
-         openMovie2 = Image.open(movieRec_img1)
-         openMovie2= openMovie2.resize((150, 200), Image.ANTIALIAS)
+         openMovie2 = Image.open(moviePath)
+         openMovie2= openMovie2.resize((300, 300), Image.ANTIALIAS)
          poster2 = ImageTk.PhotoImage(openMovie2)
              
               #Display movie  in a label
@@ -70,27 +69,54 @@ class movie_button(movie_system):
          movieImage2.image = poster2
          
            #Display Movie
-         movieImage2.grid(row=3,column=0,padx=20,pady=20,ipadx=20,ipady=20)
+         movieImage2.grid(row=1,column=0,padx=20,pady=20,ipadx=20,ipady=20)
           
               # Movie Label
-         ML=Label(top,text=movieRec_title1,font=(16), bg = "black", fg= "white")
-         ML.grid(row=2,column=0,padx=10,pady=10)
+         ML=customtkinter.CTkLabel(top,text=movieTitle)
+         ML.grid(row=0,column=0,padx=10,pady=10)
          
-         # Open Movie Image
+         play_button=customtkinter.CTkButton(top,text="Click to play", command= lambda : movie_button.playMovie(movieVideo))
+         play_button.grid(row=2,column=0)
+        #Recommendation Label
+         rec_label = customtkinter.CTkLabel(top,text="Recommended movies to watch")
+         rec_label.grid(row=3,column=0)
+         
+          # Recommendation 1
+         openMovie2 = Image.open(movieRec_img1)
+         openMovie2= openMovie2.resize((150, 200), Image.ANTIALIAS)
+         poster2 = ImageTk.PhotoImage(openMovie2)
+             
+               #Display movie  in a label
+         movieImage2 = tkinter.Label(top,image=poster2)
+         movieImage2.image = poster2
+         
+            #Display Movie
+         movieImage2.grid(row=5,column=0,padx=20,pady=20,ipadx=20,ipady=20)
+          
+               # Movie Label
+         ML=customtkinter.CTkLabel(top,text=movieRec_title1)
+         ML.grid(row=4,column=0,padx=10,pady=10)
+         recButton1=customtkinter.CTkButton(top,text="Click")
+         recButton1.grid(row=6,column=0)
+         # #--------------------------------------------------------------------
+         # # Recommendation 2
          openMovie2 = Image.open(movieRec_img2)
          openMovie2= openMovie2.resize((150, 200), Image.ANTIALIAS)
          poster2 = ImageTk.PhotoImage(openMovie2)
-            
-             #Display movie  in a label
+             
+               #Display movie  in a label
          movieImage2 = tkinter.Label(top,image=poster2)
          movieImage2.image = poster2
-        
-          #Display Movie
-         movieImage2.grid(row=3,column=1,padx=20,pady=20,ipadx=20,ipady=20)
          
-             # Movie Label
-         ML=Label(top,text=movieRec_title2,font=(16), bg = "black", fg= "white")
-         ML.grid(row=2,column=1,padx=10,pady=10)
+            #Display Movie
+         movieImage2.grid(row=5,column=1,padx=20,pady=20,ipadx=20,ipady=20)
+          
+               # Movie Label
+         ML=customtkinter.CTkLabel(top,text=movieRec_title2)
+         ML.grid(row=4,column=1,padx=10,pady=10)
+         
+         recButton1=customtkinter.CTkButton(top,text="Click")
+         recButton1.grid(row=6,column=1)
          
 
           
@@ -102,7 +128,7 @@ class movie_button(movie_system):
 class gui_display(movie_button,comparison,gui):
     def displayMovies(self):
         top=customtkinter.CTkToplevel()
-        
+        top.title("Movie Recommendations")
 
         count=0
       
